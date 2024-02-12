@@ -2,47 +2,47 @@ import pandas as pd
 import os
 
 # initialize output dataframe
-price_momentum_df = pd.DataFrame(columns=['Date', 'Stock', 'Price Momentum'])
+price_momentum_df = pd.DataFrame()
 
 def calculate_price_momentum(ticker):
     """
     Calculates price momentum factor for a given stock.
 
-    :param data: DataFrame containing the stock data
-    :param period: Period over which price momentum is calculated (5 days in this example)
-    :return: Pandas Series containing the output data of calculated factor
+    :param ticker: Ticker symbol of the stock
     """
     try:
-        # read data from CSV
+        # find and read stock data collected in task 1
         stock_data = pd.read_csv(os.path.join("../../data/", f"{ticker}.csv"))
 
-        # calculate the difference in close prices between start and end days and
-        # divide by close price at end day, then find the percent
-        stock_data['Price Momentum'] = ((stock_data['Close'] - stock_data['Close'].shift(5)) / stock_data['Close'].shift(5)) * 100
+        # calculate the difference in close prices between start and end days
+        price_difference = stock_data['Close'] - stock_data['Close'].shift(5)
 
-        # clean for missing values
-        stock_data.dropna(inplace=True)
+        # divide by close price at end day and find the percent to get momentum score
+        stock_data[ticker] = (price_difference / stock_data['Close'].shift(5)) * 100
 
-        # indicate stock for output
-        stock_data['Stock'] = ticker
+        # set Date column as index as all stocks read against Date
+        stock_data.set_index('Date', inplace=True)
 
-        # append price momentum calculation to output df
-        global price_momentum_df
-        price_momentum_df = pd.concat([price_momentum_df, stock_data[['Date', 'Stock', 'Price Momentum']]], ignore_index=True)
-
-        # print(f"Price momentum factor calculated for {ticker}")
+        # return the ticker price momentums only as we join them later on
+        return stock_data[[ticker]]
 
     except Exception as e:
         print(f"Error calculating price momentum factor for {ticker}: {str(e)}")
+        return pd.DataFrame()
 
-# read and process tickers from the tickers.txt file
+# read in stocks for column names and calculations
 with open("../../task_1/tickers.txt", "r") as f:
     tickers = f.read().splitlines()
 
-# calculate price momentum factor for each ticker
+# go through all stocks
 for ticker in tickers:
-    calculate_price_momentum(ticker)
+    # calculate price momentums for each stock
+    ticker_price_momentum = calculate_price_momentum(ticker)
+    # check if empty to see if error was given or not
+    if not ticker_price_momentum.empty:
+        # join the price momentum calculated for each ticker together
+        price_momentum_df = price_momentum_df.join(ticker_price_momentum, how='outer')
 
-# save all calculations to output.csv
-price_momentum_df.to_csv("price_momentum.csv", index=False)
-print("Price momentum data saved to price_momentum.csv")
+# save all calculations to price_momentum.csv
+price_momentum_df.to_csv("price_momentum.csv")
+print("Price momentum data saved to price_momentum.csv")  # success
