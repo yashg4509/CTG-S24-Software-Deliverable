@@ -16,5 +16,5 @@ In this task, we looked at data from the S&P 500 over the last 2 years. More spe
 #### Handling the Errors
 
 1. **Issues with Data Retrieval**: At the beginning, I was getting a lot of errors, whether it be formatting of extracting or other issues when accessing the data in a way to manipulate in Python. However, adding a general exception makes it so that any break in the program, even if not volatile, will allow someone to more effectively seem when there are errors and how to solve each error.
-2. **Data Integrity and Missing Values**: The script uses `yfinance` library, which draws directly from Yahoo Finance and is therefore reliable for stock data. Moreover, much of these issues of missing data are all handled internally within the download function of `yfinance`, ensuring consistency in solution.
+2. **Data Integrity and Missing Values**: The script uses `yfinance` library, which draws directly from Yahoo Finance and is therefore reliable for stock data. Moreover, much of these issues of missing data are all handled internally within the [download](https://aroussi.com/post/python-yahoo-finance) function of `yfinance`, ensuring consistency in solution.
 
