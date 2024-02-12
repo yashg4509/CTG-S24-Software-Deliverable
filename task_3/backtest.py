@@ -13,15 +13,22 @@ class BacktestStrategy:
         top_5_returns = []
         even_returns = []
 
-        for date, row in self.factors.iterrows():
-            sorted_tickers = row.sort_values(ascending=False)
+        for i in range(len(self.factors) - 1):
+            date = self.factors.index[i]
+            next_date = self.factors.index[i + 1]
+
+            # Use only today's factors for making decisions, not tomorrow's
+            today_factors = self.factors.loc[date]
+
+            sorted_tickers = today_factors.sort_values(ascending=False)
             top_5_tickers = sorted_tickers.nlargest(5).index
 
-            # Calculate returns for top 5 and even positions
-            top_5_returns.append(self._calculate_daily_return(top_5_tickers, date))
-            even_returns.append(self._calculate_daily_return(self.factors.columns, date))
+            # Calculate returns for top 5 and even positions using today's data
+            top_5_returns.append(self._calculate_daily_return(top_5_tickers, next_date))
+            even_returns.append(self._calculate_daily_return(self.factors.columns, next_date))
 
         return top_5_returns, even_returns
+
 
     def _calculate_daily_return(self, tickers, date):
         # Calculate daily return for given tickers
