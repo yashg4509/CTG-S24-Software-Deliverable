@@ -1,3 +1,4 @@
+# imports
 import pandas as pd
 import os
 
@@ -9,6 +10,7 @@ def calculate_price_momentum(ticker):
     Calculates price momentum factor for a given stock.
 
     :param ticker: Ticker symbol of the stock
+    :return: price momentums for a certain stock for all dates in the range
     """
     try:
         # find and read stock data collected in task 1
