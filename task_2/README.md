@@ -19,4 +19,8 @@ It can be used as a measure of risk or stability of a stock's performance.
 ### Issues Encountered
 - One major issue encountered was related to the formatting of the output CSV file.
 - Initially, the factor for each stock was being calculated and saved separately, leading to difficulty in merging and analyzing the data.
+  - This looked something like creating a DataFrame with 2 columns, Date and the result of the factor, for each stock and then saving those to individual CSVs.
 - The final solution involved assigning the factor for each stock in a resultant DataFrame and joining all the DataFrames using the Date column as an index.
+  - Much of the debugging work was fixing the join statement properly as I kept encountering different issues, such as duplicated date columns, duplicated factor columns, etc.
+  - In terms of implementation, what I do now is I conduct all the calculations in the method, save it to a ticker column within the original Dataframe that we are accessing, return that column from the calculating method, call the method for all tickers, and join all the resultant columns together. All factors essentially follow this same structure.
+- All general bugs are handled by the general exception thrown in the `try-except` within the calculate methods.
