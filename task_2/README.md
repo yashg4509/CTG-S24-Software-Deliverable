@@ -2,7 +2,9 @@
 
 ### Summary of Implementation Details for Factor 1 & 2
 
-The implementation of the first factor, Price Momentum, involved calculating the momentum score for each stock over a 5-day period by comparing the difference in close prices between the current day and 5 days ago. This score was then multiplied by 100 and stored in a DataFrame. Similarly, for the second factor, Volume Adjusted Momentum, the process included calculating price momentum as in Factor 1 and dividing it by the previous day’s volume, providing insights into momentum adjusted for trading volume over a 15-day period. Despite the need for slight adjustments in data manipulation and formatting, both factors were implemented smoothly without encountering significant challenges. The resulting scores were accurately computed and saved, ready for further analysis and evaluation.
+The implementation of the first factor, Price Momentum, involved calculating the momentum score for each stock over a 5-day period by comparing the difference in close prices between the current day and 5 days ago. This score was then multiplied by 100 and stored in a DataFrame. 
+
+Similarly, for the second factor, Volume Adjusted Momentum, the process included calculating price momentum as in Factor 1 and dividing it by the previous day’s volume, providing insights into momentum adjusted for trading volume over a 15-day period. Despite the need for slight adjustments in data manipulation and formatting, both factors were implemented smoothly without encountering significant challenges. The resulting scores were accurately computed and saved, ready for further analysis and evaluation.
 
 ### Custom Factor: Volatility Factor
 
