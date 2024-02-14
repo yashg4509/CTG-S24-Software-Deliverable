@@ -10,8 +10,9 @@ Similarly, for the second factor, Volume Adjusted Momentum, the process included
 
 #### Implementation:
 
-For the custom factor, we decided to implement a Volatility Ratio over 20 days.
-Volatility ratio is calculated as the ratio of the standard deviation of daily returns to the average daily returns over a 20-day period.
+For the custom factor, we decided to implement a Volatility Ratio over 20 days. Volatility ratio is calculated as the ratio of the standard deviation of daily returns to the average daily returns over a 20-day period.
+
+For calculation, I used the [rolling](https://www.geeksforgeeks.org/python-pandas-dataframe-rolling/) function to do the same percent change calculation -- where I used the pct_change function -- for the 20 day period (ie 20 rows). I coupled that with the standard deviation and mean calculations via the std() and mean() methods respectively.
 
 #### Motivations:
 
